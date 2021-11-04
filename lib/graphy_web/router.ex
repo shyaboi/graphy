@@ -21,9 +21,13 @@ defmodule GraphyWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", GraphyWeb do
-  #   pipe_through :api
-  # end
+  scope "/api" do
+    pipe_through :api
+
+    post "/", Absinthe.Plug, schema: Chat.Api.Schema
+
+    get "/", Absinthe.Plug.GraphiQL, schema: Chat.Api.Schema, interface: :playground
+  end
 
   # Enables LiveDashboard only for development
   #
